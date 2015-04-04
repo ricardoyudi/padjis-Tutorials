@@ -25,5 +25,35 @@ public class LingoGameTest {
 		LingoGame lingoGame = (LingoGame) ctx.getBean("myLingoGame");
 		lingoGame.StartGame();
 	}
+	
+	@Test
+	public void testLingGame(){
+		LingoGame lingoGame = (LingoGame) ctx.getBean("myLingoGame");
+		lingoGame.startGame();
+		lingoGame.setWordsFromDataSource(getWordsFromFackedDataSource());
+		
+		lingoGame.selectAWordFromTheFakeDataSource();
+		
+		lingoGame.initLayout();
+		
+		for(int i=0;i<lingoGame.getNumberOfChances();i++){
+			
+			lingoGame.waitForAwnser();
+			
+			if(lingGame.chechkAnswer()){
+				
+				lingoGame.theGameIsWon();
+				lingoGame.stopGame();
+				
+			}
+			
+		}
+		
+		lingoGame.theGameIsLost();
+		
+		lingoGame.stopGame();
+		
+		
+	}
 
 }
