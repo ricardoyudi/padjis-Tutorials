@@ -32,7 +32,10 @@ public class LingoGameTest {
 	public static void setUpGeneral(){
 		strings = new ArrayList<String>();
 		strings.add("tutorial");
-		strings.add("padjis");
+		strings.add("ablation");
+		strings.add("abortive");
+		strings.add("absorbed");
+		strings.add("abundant");
 	}
 
 	@Before
@@ -46,7 +49,7 @@ public class LingoGameTest {
 	public void test() {
 		//fail("Not yet implemented");
 		LingoGame lingoGame = (LingoGame) ctx.getBean("myLingoGame");
-		lingoGame.StartGame();
+		lingoGame.startGame();
 	}
 	
 	@Test
@@ -54,7 +57,7 @@ public class LingoGameTest {
 		System.out.println(datasource.getWordsFromFackedDataSource());
 	}
 	
-	@Test
+	/*@Test
 	public void testLingGame(){
 		LingoGame lingoGame = (LingoGame) ctx.getBean("myLingoGame");
 		lingoGame.startGame();
@@ -82,6 +85,6 @@ public class LingoGameTest {
 		lingoGame.stopGame();
 		
 		
-	}
+	}*/
 
 }
