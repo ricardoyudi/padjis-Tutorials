@@ -2,21 +2,44 @@ package com.padjistutorial.LingoProject;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.padjistutorial.LingoProject.classes.Datasource;
 import com.padjistutorial.LingoProject.classes.LingoGame;
 
+
+@RunWith(MockitoJUnitRunner.class)
 public class LingoGameTest {
 	
 	ApplicationContext ctx;
 	
+	@Mock
+	Datasource datasource;
+	
+	private static ArrayList<String> strings;
+	
+	@BeforeClass
+	public static void setUpGeneral(){
+		strings = new ArrayList<String>();
+		strings.add("tutorial");
+		strings.add("padjis");
+	}
 
 	@Before
 	public void setUp() throws Exception {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		
+		Mockito.when(datasource.getWordsFromFackedDataSource()).thenReturn(strings);
 	}
 
 	@Test
@@ -27,10 +50,15 @@ public class LingoGameTest {
 	}
 	
 	@Test
+	public void testMockedMethod(){
+		System.out.println(datasource.getWordsFromFackedDataSource());
+	}
+	
+	@Test
 	public void testLingGame(){
 		LingoGame lingoGame = (LingoGame) ctx.getBean("myLingoGame");
 		lingoGame.startGame();
-		lingoGame.setWordsFromDataSource(getWordsFromFackedDataSource());
+		lingoGame.setWordsFromDataSource(datasource.getWordsFromFackedDataSource());
 		
 		lingoGame.selectAWordFromTheFakeDataSource();
 		
